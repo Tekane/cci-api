@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class UserService {
     private final UserRepository userRepository;
 
@@ -19,12 +20,11 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    @Transactional
+
     public void createUser(User user) {
         userRepository.save(user);
     }
 
-    @Transactional
     public void updateUser(User updateUser, long userId) throws Exception {
         Optional<User> user = userRepository.findById(userId);
         if (user.isPresent()) {
@@ -37,7 +37,6 @@ public class UserService {
         }
     }
 
-    @Transactional
     public User getUserById(long userId) throws Exception {
         User user = userRepository.findById(userId).get();
         if (user == null) {
@@ -46,7 +45,6 @@ public class UserService {
         return user;
     }
 
-    @Transactional
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }

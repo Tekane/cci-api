@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class TaskService {
     private final TaskRepository taskRepository;
     private final UserRepository userRepository;
@@ -23,7 +24,6 @@ public class TaskService {
         this.userRepository = userRepository;
     }
 
-    @Transactional
     public void createTask(long userId, Task task) {
         Optional<User> user = userRepository.findById(userId);
         if (user.isPresent()) {
@@ -36,7 +36,7 @@ public class TaskService {
         }
     }
 
-    @Transactional
+
     public void createTask(Task task) {
         task.setUser(new User());
         task.setDescription(task.getDescription());
@@ -44,7 +44,7 @@ public class TaskService {
         taskRepository.save(task);
     }
 
-    @Transactional
+
     public void updateTask(long userId, Task updateTask, long taskId) {
         Optional<User> user = userRepository.findById(userId);
         if (user.isPresent()) {
@@ -58,7 +58,7 @@ public class TaskService {
         }
     }
 
-    @Transactional
+
     public void deleteTask(long userId, long taskId) {
         Optional<User> user = userRepository.findById(userId);
         if (user.isPresent()) {
@@ -71,7 +71,7 @@ public class TaskService {
         }
     }
 
-    @Transactional
+
     public Task getTask(long userId, long taskId) {
         Optional<User> user = userRepository.findById(userId);
         if (user.isPresent()) {
@@ -85,7 +85,7 @@ public class TaskService {
         return null;
     }
 
-    @Transactional
+
     public List<Task> getAllTaskForUser(long taskId) {
         Optional<User> user = userRepository.findById(taskId);
         if (user.isPresent()) {
@@ -94,7 +94,7 @@ public class TaskService {
         return null;
     }
 
-    @Transactional
+
     public List<Task> getAllTasks() {
         return taskRepository.findAll();
     }
